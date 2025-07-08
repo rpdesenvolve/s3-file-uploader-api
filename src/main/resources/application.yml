@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+aws:
+  region: ${AWS_REGION}
+  s3:
+    bucket: rp-s3-file-uploader
+  cognito:
+    client-id: ${COGNITO_CLIENT_ID}
+    user-pool-id: ${USER_POOL_ID}
+    region: ${AWS_REGION}
+    jwk-endpoint: ${JWK_ENDPOINT}
+
+logging:
+  level:
+    org.springframework.security: DEBUG

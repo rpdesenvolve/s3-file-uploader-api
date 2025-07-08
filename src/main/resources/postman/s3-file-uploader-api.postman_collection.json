@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "7dddcd88-66fc-46a8-93e4-d7d43f868011",
+		"name": "s3-file-uploader-api",
+		"description": "Postman collection to test Spring Boot API with AWS S3 and Cognito",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5737560"
+	},
+	"item": [
+		{
+			"name": "Login Cognito - Get Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{cognito}}.auth.sa-east-1.amazoncognito.com/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"{{cognito}}",
+						"auth",
+						"sa-east-1",
+						"amazoncognito",
+						"com"
+					],
+					"path": [
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File to S3",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/RPDesenvolve/projetos/aws/s3-file-uploader-api/src/main/resources/file/lorem-ipsum-upload.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/files",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Download URL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/v1/files/lorem-ipsum-upload.pdf",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"files",
+						"lorem-ipsum-upload.pdf"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token",
+			"value": "REPLACE_WITH_YOUR_JWT"
+		}
+	]
+}
