@@ -25,10 +25,10 @@ A secure REST API built with **Spring Boot 3**, leveraging **Amazon S3** for fil
 
 ## 📦 Features
 
-| Method | Endpoint             | Description                           | Secured |
-|--------|----------------------|---------------------------------------|---------|
-| POST   | `/files`             | Upload a file to S3                   | ✅ JWT   |
-| GET    | `/files/{filename}`  | Generate a signed download URL        | ✅ JWT   |
+| Method | Endpoint               | Description                           | Secured |
+|--------|------------------------|---------------------------------------|---------|
+| POST   | `/v1/files`            | Upload a file to S3                   | ✅ JWT   |
+| GET    | `/v1/files/{filename}` | Generate a signed download URL        | ✅ JWT   |
 
 ---
 
@@ -113,7 +113,7 @@ Response:
 ### 📤 Upload a file
 
 ```bash
-curl -X POST http://localhost:8080/files   -H "Authorization: Bearer <ACCESS_TOKEN>"   -F "file=@/path/to/your/file.pdf"
+curl -X POST http://localhost:8080/v1/files   -H "Authorization: Bearer <ACCESS_TOKEN>"   -F "file=@/path/to/your/file.pdf"
 ```
 
 ---
@@ -121,7 +121,7 @@ curl -X POST http://localhost:8080/files   -H "Authorization: Bearer <ACCESS_TOK
 ### 📥 Get a signed download URL
 
 ```bash
-curl -X GET http://localhost:8080/files/filename.pdf   -H "Authorization: Bearer <ACCESS_TOKEN>"
+curl -X GET http://localhost:8080/v1/files/filename.pdf   -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 
 ---
